@@ -4,8 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const questInput = document.getElementById('questInput');
     const addQuestBtn = document.getElementById('addQuestBtn');
     const questList = document.getElementById('questList');
+    const feedback = document.getElementById('feedback');
 
-    console.log({ questInput, addQuestBtn, questList});
+    function setFeedback(msg) {
+        feedback.textContent = msg;
+    }
+
+    function questExists(text) {
+        const wanted = text.toLowerCase();
+        for (const li of questList.querySelectorAll('li')) {
+            if (li.textContent.toLowerCase() === wanted) return true;
+        }
+        return false;
+    }
 
     addQuestBtn.addEventListener('click', () => {
         const rawText = questInput.value;
@@ -17,10 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        if (questExists(questText)) {
+            setFeedback('That quest already exist.');
+            questInput.select();
+            return;
+        }
+
         const li = document.createElement('li');
         li.textContent = questText;
         questList.appendChild(li);
 
+        setFeedback('Quest added!');
         questInput.value = '';
         questInput.focus()
     });
@@ -30,4 +48,4 @@ document.addEventListener('DOMContentLoaded', () => {
             addQuestBtn.click();
         }
     });
-} )
+})
