@@ -17,7 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        console.log('New quest:', questText);
+        const li = document.createElement('li');
+        li.textContent = questText;
+        questList.appendChild(li);
+
         questInput.value = '';
         questInput.focus()
     });
@@ -26,5 +29,5 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') {
             addQuestBtn.click();
         }
-    })
+    });
 } )
